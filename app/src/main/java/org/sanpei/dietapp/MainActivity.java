@@ -8,8 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    double mWeight = 62;
+    TextView weightText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        weightText = (TextView)findViewById(R.id.Weight);
+        weightText.setText(String.valueOf(mWeight));
     }
 
     @Override
@@ -49,4 +55,21 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void clickButtonDecrease05(View view) {
+        mWeight = mWeight - 0.5;
+        weightText.setText(String.valueOf(mWeight));
+    }
+    public void clickButtonIncrease05(View view) {
+        mWeight = mWeight + 0.5;
+        weightText.setText(String.valueOf(mWeight));
+    }
+    public void clickButtonDecrease01(View view) {
+        mWeight = mWeight - 0.1;
+        weightText.setText(String.valueOf(mWeight));
+    }
+    public void clickButtonIncrease01(View view) {
+        mWeight = mWeight + 0.1;
+        weightText.setText(String.valueOf(mWeight));
+    }
+
 }

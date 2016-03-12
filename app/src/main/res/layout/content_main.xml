@@ -76,15 +76,63 @@
                 android:layout_gravity="center_vertical" />
         </LinearLayout>
 
-        <EditText
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:ems="10"
-            android:id="@+id/Weight"
-            android:layout_gravity="center_horizontal"
-            android:text="62.1"
-            android:gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="22dp"
+                android:layout_height="wrap_content"
+                android:text="&lt;&lt;0.5"
+                android:id="@+id/decrese0.5"
+                android:layout_weight="4.18"
+                android:onClick="clickButtonDecrease05" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&lt;&lt;0.1"
+                android:id="@+id/decrease0.1"
+                android:layout_weight="1"
+                android:onClick="clickButtonDecrease01" />
+
+            <EditText
+                android:layout_width="74dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/Weight"
+                android:gravity="center_horizontal" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.1>"
+                android:id="@+id/increae0.1"
+                android:layout_weight="1"
+                android:onClick="clickButtonIncrease01" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.5>>"
+                android:id="@+id/increase0.5"
+                android:layout_weight="1"
+                android:onClick="clickButtonIncrease05" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:id="@+id/Submit"
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 </RelativeLayout>
