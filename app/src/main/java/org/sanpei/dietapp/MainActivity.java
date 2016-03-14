@@ -3,6 +3,7 @@ package org.sanpei.dietapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -17,9 +18,11 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+
 public class MainActivity extends AppCompatActivity {
 
-    double mWeight = 62;
+    BigDecimal mWeight = new BigDecimal("62");
     String mPassword;
     String mUsername;
     TextView weightText;
@@ -39,11 +42,15 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        weightText = (TextView)findViewById(R.id.Weight);
-        weightText.setText(String.valueOf(mWeight));
         Setting setting = new Setting();
         mPassword = setting.loadPassword(this);
         mUsername = setting.loadUsername(this);
+        String loadWeight =setting.loadWeight(this);
+        if (loadWeight != null) {
+            mWeight = new BigDecimal(loadWeight);
+        }
+        weightText = (TextView)findViewById(R.id.Weight);
+        weightText.setText(String.valueOf(mWeight));
     }
 
     @Override
@@ -104,24 +111,40 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void clickButtonDecrease05(View view) {
-        mWeight = mWeight - 0.5;
+        mWeight = mWeight.add(new BigDecimal("-0.5"));
         weightText.setText(String.valueOf(mWeight));
     }
     public void clickButtonIncrease05(View view) {
-        mWeight = mWeight + 0.5;
+        mWeight = mWeight.add(new BigDecimal("0.5"));
         weightText.setText(String.valueOf(mWeight));
     }
     public void clickButtonDecrease01(View view) {
-        mWeight = mWeight - 0.1;
+        mWeight = mWeight.add(new BigDecimal("-0.1"));
         weightText.setText(String.valueOf(mWeight));
     }
     public void clickButtonIncrease01(View view) {
-        mWeight = mWeight + 0.1;
+        mWeight = mWeight.add(new BigDecimal("0.1"));
         weightText.setText(String.valueOf(mWeight));
     }
+    public void clickButtonSubmit(View view) {
+        Setting setting = new Setting();
+        setting.saveWeight(this, String.valueOf(mWeight));
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("message/rfc822");
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"sanpei@sanpei.org"});
+        intent.putExtra(Intent.EXTRA_SUBJECT, "diet.dyndns.org");
+        intent.putExtra(Intent.EXTRA_TEXT, "http://diet.dyndns.org/?cmd=user\n"+String.valueOf(mWeight));
+        startActivity(intent);
+        finish();
+
+    }
+
     public class Setting {
         private static final String KEY_PASSWORD = "key_account_password";
         private static final String KEY_USERNAME = "key_account_name";
+        private static final String KEY_WEIGHT = "key_weight";
 
         public String loadPassword(Context context) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -141,6 +164,16 @@ public class MainActivity extends AppCompatActivity {
         public void saveUsername(Context context, String password) {
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
             editor.putString(KEY_USERNAME, password);
+            editor.commit();
+        }
+        public String loadWeight(Context context) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            return preferences.getString(KEY_WEIGHT, null);
+        }
+
+        public void saveWeight(Context context, String weight) {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+            editor.putString(KEY_WEIGHT, weight);
             editor.commit();
         }
 
