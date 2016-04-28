@@ -1,5 +1,6 @@
 package org.sanpei.dietapp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,7 +21,7 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     BigDecimal mWeight = new BigDecimal("62");
     String mPassword;
@@ -31,17 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         Setting setting = new Setting();
         mPassword = setting.loadPassword(this);
         mUsername = setting.loadUsername(this);
@@ -134,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("message/rfc822");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"sanpei@sanpei.org"});
-        intent.putExtra(Intent.EXTRA_SUBJECT, "diet.dyndns.org");
-        intent.putExtra(Intent.EXTRA_TEXT, "http://diet.dyndns.org/?cmd=user\n"+String.valueOf(mWeight));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "diet.dyndns.org "+String.valueOf(mWeight));
+//        intent.putExtra(Intent.EXTRA_TEXT, "http://diet.dyndns.org/?cmd=user\n"+String.valueOf(mWeight));
         startActivity(intent);
         finish();
 
