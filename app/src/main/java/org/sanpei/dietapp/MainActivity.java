@@ -134,8 +134,7 @@ public class MainActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("message/rfc822");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"sanpei@sanpei.org"});
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Home/ diet.dyndns.org");
-        intent.putExtra(Intent.EXTRA_TEXT, "http://diet.dyndns.org/?cmd=user\n"+String.valueOf(mWeight));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Home/ diet.dyndns.org "+ String.valueOf(mWeight));
         startActivity(intent);
         finish();
 
