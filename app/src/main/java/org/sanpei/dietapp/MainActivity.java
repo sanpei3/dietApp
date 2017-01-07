@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -135,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
         intent.setType("message/rfc822");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"sanpei@sanpei.org"});
         intent.putExtra(Intent.EXTRA_SUBJECT, "Home/ diet.dyndns.org "+ String.valueOf(mWeight));
+        Date date = new Date();
+        intent.putExtra(Intent.EXTRA_TEXT, date.toString());
         startActivity(intent);
         finish();
 
