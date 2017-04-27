@@ -137,7 +137,8 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"sanpei@sanpei.org"});
         intent.putExtra(Intent.EXTRA_SUBJECT, "Home/ diet.dyndns.org "+ String.valueOf(mWeight));
         Date date = new Date();
-        intent.putExtra(Intent.EXTRA_TEXT, date.toString());
+        String sdate = date.toString();
+        intent.putExtra(Intent.EXTRA_TEXT, sdate.substring(0, sdate.indexOf("GMT") - 1));
         startActivity(intent);
         finish();
 
